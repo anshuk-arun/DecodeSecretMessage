@@ -101,23 +101,6 @@ if __name__ == "__main__":
     print("Data Annotation - Decode Secret Message")
     main()
 
+    # Adding Nothing for update github
 
 
-# prices = doc.find_all(text="$")
-# print(prices)
-
-# print(doc.prettify())
-
-
-# with open("index.html", "r") as f:
-#     doc = BeautifulSoup(f, "html.parser")
-
-# tags = doc.find_all("p")
-# print(tags)
-# tag = doc.title
-# tag.string = "hello"
-# print(doc)
-
-# print(tag.string)
-# print(tag)
-# print(doc.prettify())
