@@ -26,8 +26,6 @@ def decodeUrl(url=f"{exampleURL}"):
             break
     
     # Format is X Coordinate, Character, Y Coordinate
-    # X Coordinate Increasing means stepping right across grid, which means columns, which means second index in 2d array
-    # Y coordinate increasing means stepping down the grid, which means rows, which means first index in 2d array
     # counter increments, at 2 - the y coordinate - inputs the code into array, then variables reset
     decodeTypeCounter = 0
     xCoord = -1
@@ -47,7 +45,6 @@ def decodeUrl(url=f"{exampleURL}"):
             case 2:
                 if (tags[i].text.isdigit()):
                     yCoord = int(tags[i].text)
-                    
                     # Insert code into array
                     outputArr.append([(xCoord, yCoord), code])
                     # Reset the variables
@@ -60,14 +57,16 @@ def decodeUrl(url=f"{exampleURL}"):
 
     # Calls helper function
     # Prints the grid of characters specified by input data, displaying a graphic of correctly oriented Uppercase Letters
-    finalMessage = printSecretMessage(outputArr)
-    return finalMessage
+    printSecretMessage(outputArr)
+
+    return ""
 
 
-def printSecretMessage(arr=[(0, 0), "N/A"]):
+def printSecretMessage(arr=[(0, 0), " "]):
 
     # Initializing the Grid
-    grid = [[" " for i in range(len(arr))] for j in range(len(arr))]
+    gridSize = int(len(arr)/2)
+    grid = [[" " for i in range(gridSize)] for j in range(gridSize)]
 
     for elem in range(len(arr)):
         
@@ -82,10 +81,14 @@ def printSecretMessage(arr=[(0, 0), "N/A"]):
         grid[y][x] = code    
 
     # Rows, Bottom to Top
-    for row in range(len(grid)-1, -1, -1):
-        # Cols, Left to Right
-        for col in range(len(grid)):
-            print(grid[row][col], end="")
+    for row in range(gridSize-1, -1, -1):
+        # If the Row contains only whitespace, skip it entirely
+        if (row == ([" "]*gridSize)):
+            continue
+        else:
+            # Cols, Left to Right
+            for col in range(gridSize):
+                print(grid[row][col], end="")
         print()
     
     # TEST: Message Prints correctly!
@@ -103,7 +106,7 @@ def main():
 
     # Decode the URL
     if (inputStr == ""):
-        print(f"DEBUG: Default URL is being used.")
+        print(f"DEBUG: Example URL is being used.")
         decodeUrl()
 
     else:
