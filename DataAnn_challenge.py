@@ -72,7 +72,14 @@ def printSecretMessage(arr=[(0, 0), "N/A"]):
 
     # Initializing the Grid
     grid = [[" " for i in range(len(arr))] for j in range(len(arr))]
-    
+
+    print(f"DEBUG: {grid}")    
+    for line in grid:
+        for elem in line:
+            print(elem, end="")
+        print()
+    print("End DEBUG GRID")
+
     for elem in range(len(arr)):
         
         # Format is [(X, Y) , Code]
@@ -86,13 +93,28 @@ def printSecretMessage(arr=[(0, 0), "N/A"]):
         print(f"DEBUG: Point: {point} = Row {y} Col {x} || Code: {code}")
         
         grid[y][x] = code
-        print(grid)
+
+        print("DEBUG Grid Update")
+        for line in grid:
+            for elem in line:
+                print(elem, end="")
+            print()
     
-    # Printing the Grid AKA final Message
-    for row in range((len(grid)-1), -1, -1):
-        for col in range((len(grid[0])-1), -1, -1): 
-            print(grid[row][col], end="")
+    
+    # Print Final Message
+    for line in reversed(grid):
+        for elem in reversed(line):
+            print(elem, end="")
         print()
+    
+    # # Printing the Grid AKA final Message
+    # for y in range((len(grid)-1), -1, -1):
+    #     for x in range((len(grid[0])-1), -1, -1): 
+    #         print(grid[y][x], end="")
+    #     print()
+    
+    # DEBUG
+    # Closest Attempt, Decoded Message Is Capital F but flipped Horizontally Right now
 
     
 
@@ -101,7 +123,6 @@ def main():
 
     # Needed Variables
     inputStr = ""
-    result = "DEBUG: This is where the result goes"
 
     # Take Input of URL to decode from
     print("Please enter the URL to decode: ")
@@ -110,20 +131,15 @@ def main():
     # Decode the URL
     if (inputStr == ""):
         print(f"DEBUG: Default URL is being used.")
-        result = decodeUrl()
+        decodeUrl()
 
     else:
         print(f"DEBUG: The URL given is {inputStr}")
-        result = decodeUrl(inputStr)
-
-    # Print out the Result for DEBUG
-    print(f"DEBUG: Result of decodeUrl \n {result}")
+        decodeUrl(inputStr)
 
 
 if __name__ == "__main__":
     print("Data Annotation - Decode Secret Message")
     main()
-
-    # Adding Nothing for update github
 
 
