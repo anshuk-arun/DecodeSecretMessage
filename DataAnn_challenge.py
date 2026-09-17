@@ -22,7 +22,6 @@ def decodeUrl(url=f"{exampleURL}"):
         tagStr = tags[i].text
         
         if(tagStr == "y-coordinate"):
-            # print(f"DEBUG: found y coord, {i}, {i+1}, {tagStr}")
             startIndex = i + 1
             break
     
@@ -41,17 +40,14 @@ def decodeUrl(url=f"{exampleURL}"):
             case 0:
                 if (tags[i].text.isdigit()):
                     xCoord = int(tags[i].text)
-                    print(f"X: {xCoord}", end=" || ")
                     decodeTypeCounter = decodeTypeCounter + 1
             case 1:
                 code = tags[i].text
-                print(f"Code: {code}", end=" || ")
                 decodeTypeCounter = decodeTypeCounter + 1
             case 2:
                 if (tags[i].text.isdigit()):
                     yCoord = int(tags[i].text)
-                    print(f"Y: {yCoord}")
-
+                    
                     # Insert code into array
                     outputArr.append([(xCoord, yCoord), code])
                     # Reset the variables
@@ -73,13 +69,6 @@ def printSecretMessage(arr=[(0, 0), "N/A"]):
     # Initializing the Grid
     grid = [[" " for i in range(len(arr))] for j in range(len(arr))]
 
-    print(f"DEBUG: {grid}")    
-    for line in grid:
-        for elem in line:
-            print(elem, end="")
-        print()
-    print("End DEBUG GRID")
-
     for elem in range(len(arr)):
         
         # Format is [(X, Y) , Code]
@@ -89,17 +78,8 @@ def printSecretMessage(arr=[(0, 0), "N/A"]):
         x = point[0]
         y = point[1]
 
-        code = arr[elem][1]
-        print(f"DEBUG: Point: {point} = Row {y} Col {x} || Code: {code}")
-        
-        grid[y][x] = code
-
-        print("DEBUG Grid Update")
-        for line in grid:
-            for elem in line:
-                print(elem, end="")
-            print()
-    
+        code = arr[elem][1]        
+        grid[y][x] = code    
 
     # Rows, Bottom to Top
     for row in range(len(grid)-1, -1, -1):
