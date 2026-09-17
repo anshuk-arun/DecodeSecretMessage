@@ -22,11 +22,13 @@ def decodeUrl(url=f"{exampleURL}"):
         tagStr = tags[i].text
         
         if(tagStr == "y-coordinate"):
-            print(f"found y coord, {i}, {i+1}, {tagStr}")
+            # print(f"DEBUG: found y coord, {i}, {i+1}, {tagStr}")
             startIndex = i + 1
             break
     
     # Format is X Coordinate, Character, Y Coordinate
+    # X Coordinate Increasing means stepping right across grid, which means columns, which means second index in 2d array
+    # Y coordinate increasing means stepping down the grid, which means rows, which means first index in 2d array
     # counter increments, at 2 - the y coordinate - inputs the code into array, then variables reset
     decodeTypeCounter = 0
     xCoord = -1
@@ -38,7 +40,7 @@ def decodeUrl(url=f"{exampleURL}"):
         match decodeTypeCounter:
             case 0:
                 if (tags[i].text.isdigit()):
-                    xCoord = tags[i].text
+                    xCoord = int(tags[i].text)
                     print(f"X: {xCoord}", end=" || ")
                     decodeTypeCounter = decodeTypeCounter + 1
             case 1:
@@ -47,7 +49,7 @@ def decodeUrl(url=f"{exampleURL}"):
                 decodeTypeCounter = decodeTypeCounter + 1
             case 2:
                 if (tags[i].text.isdigit()):
-                    yCoord = tags[i].text
+                    yCoord = int(tags[i].text)
                     print(f"Y: {yCoord}")
 
                     # Insert code into array
@@ -68,9 +70,30 @@ def decodeUrl(url=f"{exampleURL}"):
 
 def printSecretMessage(arr=[(0, 0), "N/A"]):
 
-    # DEBUG Print the array
-    for i in range(len(arr)):
-        print(arr[i])
+    # Initializing the Grid
+    grid = [[" " for i in range(len(arr))] for j in range(len(arr))]
+    
+    for elem in range(len(arr)):
+        
+        # Format is [(X, Y) , Code]
+        # X Coordinate Increasing means stepping right across grid, which means columns, which means second index in 2d array
+        # Y coordinate increasing means stepping down the grid, which means rows, which means first index in 2d array
+        point = arr[elem][0]
+        x = point[0]
+        y = point[1]
+
+        code = arr[elem][1]
+        print(f"DEBUG: Point: {point} = Row {y} Col {x} || Code: {code}")
+        
+        grid[y][x] = code
+        print(grid)
+    
+    # Printing the Grid AKA final Message
+    for row in range((len(grid)-1), -1, -1):
+        for col in range((len(grid[0])-1), -1, -1): 
+            print(grid[row][col], end="")
+        print()
+
     
 
 
