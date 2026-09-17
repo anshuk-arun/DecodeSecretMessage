@@ -100,22 +100,15 @@ def printSecretMessage(arr=[(0, 0), "N/A"]):
                 print(elem, end="")
             print()
     
-    
-    # Print Final Message
-    for line in reversed(grid):
-        for elem in reversed(line):
-            print(elem, end="")
+
+    # Rows, Bottom to Top
+    for row in range(len(grid)-1, -1, -1):
+        # Cols, Left to Right
+        for col in range(len(grid)):
+            print(grid[row][col], end="")
         print()
     
-    # # Printing the Grid AKA final Message
-    # for y in range((len(grid)-1), -1, -1):
-    #     for x in range((len(grid[0])-1), -1, -1): 
-    #         print(grid[y][x], end="")
-    #     print()
-    
-    # DEBUG
-    # Closest Attempt, Decoded Message Is Capital F but flipped Horizontally Right now
-
+    # TEST: Message Prints correctly!
     
 
 
